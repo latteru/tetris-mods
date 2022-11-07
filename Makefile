@@ -20,7 +20,7 @@ endif
 
 CA65 := $(WINE) $(cc65Path)/bin/ca65
 LD65 := $(WINE) $(cc65Path)/bin/ld65
-nesChrEncode := python3 tools/nes-util/nes_chr_encode.py --palette 6b6b6b, a5a5a5, efefef idkrandomlol
+nesChrEncode := python3 tools/nes-util/nes_chr_encode.py 
 # -p 000000, 6b6b6b, a5a5a5, efefef
 
 tetris.nes: tetris.o main.o tetris-ram.o
@@ -63,6 +63,6 @@ $(tetris_obj): %.o: %.asm $$(dep)
 
 
 %.chr: %.png
-		$(nesChrEncode) $< $@
+		$(nesChrEncode) $< $@ --palette 6b6b6b, a5a5a5, efefef
 
 
