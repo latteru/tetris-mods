@@ -24,10 +24,17 @@ jobs:
       run: |
         mkdir temp
         mv *.nes temp
+        mkdir chr-files
+        cp gfx/*.chr chr-files
     - name: artifact
       uses: actions/upload-artifact@v2
       with: 
         name: Tetris-ROM-from-decomp
         path: temp
+    - name: chr-artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: Chr Files
+        path: chr-files
       
 
