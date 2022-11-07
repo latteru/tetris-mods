@@ -63,6 +63,6 @@ $(tetris_obj): %.o: %.asm $$(dep)
 
 
 %.chr: %.png
-		$(nesChrEncode) $< $@ --palette 000000 6b6b6b a5a5a5 efefef
+		$(nesChrEncode) $< $@ 
 
 
