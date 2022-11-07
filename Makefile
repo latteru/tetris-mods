@@ -24,7 +24,7 @@ nesChrEncode := python3 tools/nes-util/nes_chr_encode.py
 
 tetris.nes: tetris.o main.o tetris-ram.o
 
-tetris:= tetris.nes
+tetris:= Tetris-Compiled.nes
 
 .SUFFIXES:
 .SECONDEXPANSION:
@@ -35,9 +35,6 @@ tetris:= tetris.nes
 
 CAFLAGS = -g
 LDFLAGS =
-
-compare: $(tetris)
-	$(SHA1SUM) -c tetris.sha1
 
 clean:
 	rm -f  $(tetris_obj) $(tetris) *.d tetris.dbg tetris.lbl gfx/*.chr
