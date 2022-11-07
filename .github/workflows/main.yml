@@ -1,0 +1,33 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-python@master
+      with: 
+        python-version: '3.7'
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: Upgrade pip
+      run: python -m pip install --upgrade pip setuptools wheel
+    - name: Install Dependancies
+      run: sudo apt-get install make gcc bison git cc65 -y
+    - name: Install Pillow
+      run: pip install pillow
+    - name: Make (Build)
+      run: make
+    - name: Artifact uploading (part one)
+      run: |
+        mkdir temp
+        mv *.nes temp
+    - name: artifact
+      uses: actions/upload-artifact@v2
+      with: 
+        name: Tetris-ROM-from-decomp
+        path: temp
+      
+

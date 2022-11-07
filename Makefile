@@ -15,7 +15,7 @@ endif
 ifeq ($(WINDOWS),1)
   WINE :=
 else
-  WINE := wine
+  WINE := 
 endif
 
 CA65 := $(WINE) $(cc65Path)/bin/ca65
@@ -24,7 +24,7 @@ nesChrEncode := python3 tools/nes-util/nes_chr_encode.py
 
 tetris.nes: tetris.o main.o tetris-ram.o
 
-tetris:= tetris.nes
+tetris:= Tetris-Compiled.nes
 
 .SUFFIXES:
 .SECONDEXPANSION:
@@ -35,9 +35,6 @@ tetris:= tetris.nes
 
 CAFLAGS = -g
 LDFLAGS =
-
-compare: $(tetris)
-	$(SHA1SUM) -c tetris.sha1
 
 clean:
 	rm -f  $(tetris_obj) $(tetris) *.d tetris.dbg tetris.lbl gfx/*.chr
@@ -55,10 +52,12 @@ endif
 
 %.o: dep = $(shell tools/cTools/scan_includes $(@D)/$*.asm)
 $(tetris_obj): %.o: %.asm $$(dep)
-		$(CA65) $(CAFLAGS) $*.asm -o $@
+		ca65 $(CAFLAGS) $*.asm -o $@
+# og: $(CA65) $(CAFLAGS) $*.asm -o $@
 
 %: %.cfg
-		$(LD65) $(LDFLAGS) -Ln $(basename $@).lbl --dbgfile $(basename $@).dbg -o $@ -C $< $(tetris_obj)
+		ld65 $(LDFLAGS) -Ln $(basename $@).lbl --dbgfile $(basename $@).dbg -o $@ -C $< $(tetris_obj)
+# og: $(LD65) $(LDFLAGS) -Ln $(basename $@).lbl --dbgfile $(basename $@).dbg -o $@ -C $< $(tetris_obj)
 
 
 
