@@ -15,7 +15,7 @@ jobs:
     - name: Upgrade pip
       run: python -m pip install --upgrade pip setuptools wheel
     - name: Install Dependancies
-      run: sudo apt-get install make gcc bison git -y
+      run: sudo apt-get install make gcc bison git wine -y
     - name: Install Pillow
       run: pip install pillow
     - name: Make (Build)
