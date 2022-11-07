@@ -3,7 +3,7 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  build:
+  build-no-bg:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/setup-python@master
@@ -27,7 +27,7 @@ jobs:
     - name: artifact
       uses: actions/upload-artifact@v2
       with: 
-        name: Tetris-ROM-from-decomp
+        name: no-bg-tetris-rom-mod-from-decomp
         path: temp
       
 
