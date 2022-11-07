@@ -15,7 +15,7 @@ endif
 ifeq ($(WINDOWS),1)
   WINE :=
 else
-  WINE := wine
+  WINE := 
 endif
 
 CA65 := $(WINE) $(cc65Path)/bin/ca65
@@ -55,10 +55,12 @@ endif
 
 %.o: dep = $(shell tools/cTools/scan_includes $(@D)/$*.asm)
 $(tetris_obj): %.o: %.asm $$(dep)
-		$(CA65) $(CAFLAGS) $*.asm -o $@
+		ca65 $(CAFLAGS) $*.asm -o $@
+# og: $(CA65) $(CAFLAGS) $*.asm -o $@
 
 %: %.cfg
-		$(LD65) $(LDFLAGS) -Ln $(basename $@).lbl --dbgfile $(basename $@).dbg -o $@ -C $< $(tetris_obj)
+		ld65 $(LDFLAGS) -Ln $(basename $@).lbl --dbgfile $(basename $@).dbg -o $@ -C $< $(tetris_obj)
+# og: $(LD65) $(LDFLAGS) -Ln $(basename $@).lbl --dbgfile $(basename $@).dbg -o $@ -C $< $(tetris_obj)
 
 
 
